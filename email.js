@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const sgMail = require('@sendgrid/mail');
 const API_KEY = require('./sendgrid.env').API_KEY;
 

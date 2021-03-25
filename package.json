@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {
+    "email-cli": "./index.js"
+  },
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
     "prompt-sync": "^4.2.0"
