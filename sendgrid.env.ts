@@ -1,1 +1,1 @@
-export const APP_KEY: string = "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";
+export const APP_KEY: string = "";
