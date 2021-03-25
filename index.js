@@ -37,7 +37,7 @@ while(true) {
 const email = createEmail(listaTarefas, salute)
 
 const mensagem = {
-  to: ['viniciustprates@gmail.com', 'viniteixeirapa@gmail.com'],
+  to: ['viniciustprates@gmail.com'],
   from: 'vinicius.teixeira@mmtools.com.br',
   subject: 'Relatorio diario',
   html: email,
