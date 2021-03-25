@@ -2,18 +2,24 @@
   "name": "email",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bin": {
-    "email-cli": "./index.js"
+    "email-cli": "./index.ts"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync": "^4.2.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
+    "@types/prompt-sync": "^4.1.0"
   }
 }

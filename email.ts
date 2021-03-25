@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const sgMail = require('@sendgrid/mail');
-const API_KEY = require('./sendgrid.env').API_KEY;
+import { setApiKey, send, MailDataRequired } from '@sendgrid/mail';
+import { APP_KEY} from './sendgrid.env';
 
-const sE = async (msg) => {
-    sgMail.setApiKey(API_KEY);
+export async function sendEmail(msg: MailDataRequired) {
+    setApiKey(APP_KEY);
     
     try {
-      await sgMail.send(msg);
+      await send(msg.);
       console.log('Email enviado!! ✨')
     } catch (error) {
       console.error(error);
@@ -17,5 +17,3 @@ const sE = async (msg) => {
       }
     }
   }
-
-exports.sendEmail = sE

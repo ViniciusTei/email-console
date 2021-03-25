@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const prompt = require('prompt-sync')();
-const sendEmail = require('./email')
+import {sendEmail}  from './email'
+import { MailDataRequired } from '@sendgrid/mail';
+import  { Prompt } from 'prompt-sync';
 
-function createEmail(listaT, saudacao) {
+function createEmail(listaT: string[], saudacao: string): string {
   let linha1 = `<p>${saudacao}, segue resumo das minhas atividades de hoje</p>`
   let listItem = '<ul>'
 
@@ -19,14 +20,14 @@ function createEmail(listaT, saudacao) {
 }
 
 console.log("😎 Digite a saudacao: \n .1 Bom dia\n .2 Boa tarde\n .3 Boa noite")
-const salute = prompt("> ", 'Boa noite');
+const salute = Prompt("> ", 'Boa noite');
 
 console.log("💻 Entre com as tarefas (SAIR para sair):")
 let count = 1
 let listaTarefas = []
 
 while(true) {
-  let tarefa = prompt(`${count} > `)
+  let tarefa = Prompt(`${count} > `)
 
   if(tarefa.toUpperCase() === 'SAIR') break
 
@@ -36,11 +37,11 @@ while(true) {
 
 const email = createEmail(listaTarefas, salute)
 
-const mensagem = {
-  to: ['viniciustprates@gmail.com'],
+const mensagem: MailDataRequired = {
+  to: ['desenvolvimento@mmtools.com.br'],
   from: 'vinicius.teixeira@mmtools.com.br',
   subject: 'Relatorio diario',
   html: email,
 };
 
-sendEmail.sendEmail(mensagem)
+sendEmail(mensagem)
