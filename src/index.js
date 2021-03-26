@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-sendEmail = require('./email');
+const { Email } = require('./email');
 rl = require("readline");
 
 const readLine = rl.createInterface({
@@ -8,21 +8,7 @@ const readLine = rl.createInterface({
   output: process.stdout 
 })
 
-function createEmail(listaT, saudacao){
-  let linha1 = `<p>${saudacao}, segue resumo das minhas atividades de hoje</p>`
-  let listItem = '<ul>'
-
-  for(let i = 0; i < listaT.length; i++) {
-    listItem += `<li> ${listaT[i]}</li>`
-  }
-
-  listItem += '</ul>'
-
-  let final = '<p>Abraco,</p>'
-
-  return linha1 + listItem + final
-}
-
+//Promisse to get user input, return the string entered
 const getUserInput = (pergunta) => new Promise(resposta => readLine.question(pergunta, resposta));
 
 async function main() {
@@ -32,7 +18,7 @@ async function main() {
   console.log("===========================")
   let salute = ''
   readLine.prompt()
-  await getUserInput("😎 Digite a saudacao:").then((res) => {
+  await getUserInput("😎 Digite a saudacao: ").then((res) => {
     if(salute === res) {
       salute = 'Boa noite'
     } else {
@@ -62,19 +48,10 @@ async function main() {
     
   }
   
-  console.log(listaTarefas)
-  
-  //const email = createEmail(listaTarefas, salute)
-  
-  // const mensagem = {
-    //   to: [],
-    //   from: 'vinicius.teixeira@mmtools.com.br',
-    //   subject: 'Relatorio diario',
-    //   html: email,
-    // };
-    
-    //sendEmail(mensagem)
-    readLine.close()
+  Email.createHTMLEmail(listaTarefas, salute)
+  console.log(Email.message)
+
+  readLine.close()
   }
   
   main()
