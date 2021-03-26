@@ -1,1 +1,0 @@
-# Console aplication that send an email with a to-do list
