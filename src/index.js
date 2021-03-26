@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import {sendEmail}  from './email'
-import { createInterface } from "readline";
+sendEmail = require('./email').sendEmail
+createInterface = require("readline").createInterface;
 
 function createEmail(listaT, saudacao){
   let linha1 = `<p>${saudacao}, segue resumo das minhas atividades de hoje</p>`
@@ -24,7 +24,7 @@ const readLine = createInterface({
 })
 
 let salute = 'Boa noite';
-readLine.question("😎 Digite a saudacao: \n .1 Bom dia\n .2 Boa tarde\n .3 Boa noite", (resposta) => {
+readLine.question("😎 Digite a saudacao:", (resposta) => {
   salute = resposta
   readLine.close();
 })
@@ -33,25 +33,25 @@ console.log("💻 Entre com as tarefas (SAIR para sair):")
 let count = 1
 let listaTarefas = []
 
-while(true) {
-  let tarefa = '';
+// while(true) {
+//   let tarefa = '';
   
-  readLine.question(`${count} > `, (res) => {
-    tarefa = res
-    readLine.close();
-  })
+//   readLine.question(`${count} > `, (res) => {
+//     tarefa = res
+//     readLine.close();
+//   })
 
-  if(tarefa.toUpperCase() === 'SAIR') break
+//   if(tarefa.toUpperCase() === 'SAIR') break
 
-  listaTarefas.push(tarefa)
-  count++
+//   listaTarefas.push(tarefa)
+//   count++
 
-}
+// }
 
 const email = createEmail(listaTarefas, salute)
 
 const mensagem = {
-  to: ['desenvolvimento@mmtools.com.br'],
+  to: [],
   from: 'vinicius.teixeira@mmtools.com.br',
   subject: 'Relatorio diario',
   html: email,
