@@ -17,6 +17,8 @@ async function main() {
   console.log("========= EMAIL🐱‍👤=========")
   console.log("===========================")
   let salute = ''
+
+  //gets the prompt ready for the user input
   readLine.prompt()
   await getUserInput("😎 Digite a saudacao: ").then((res) => {
     if(salute === res) {
@@ -24,10 +26,8 @@ async function main() {
     } else {
       salute = res
     }
-    readLine.resume()
+    readLine.resume() //remember to always pause de prompt so the program can continue
   });
-  
-  console.log(salute)
   
   console.log("💻 Entre com as tarefas (SAIR para sair):")
   let count = 1
@@ -41,6 +41,8 @@ async function main() {
       tarefa= res
       readLine.resume()
     })
+
+    //when the user types sair/SAIR it gets out of the loop
     if(tarefa.toUpperCase() === 'SAIR') break
     
     listaTarefas.push(tarefa)
