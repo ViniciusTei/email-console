@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-sendEmail = require('./email').sendEmail
-createInterface = require("readline").createInterface;
+sendEmail = require('./email');
+rl = require("readline");
+
+const readLine = rl.createInterface({
+  input: process.stdin,
+  output: process.stdout 
+})
 
 function createEmail(listaT, saudacao){
   let linha1 = `<p>${saudacao}, segue resumo das minhas atividades de hoje</p>`
@@ -18,43 +23,59 @@ function createEmail(listaT, saudacao){
   return linha1 + listItem + final
 }
 
-const readLine = createInterface({
-  input: process.stdin,
-  output: process.stdout 
-})
+const getUserInput = (pergunta) => new Promise(resposta => readLine.question(pergunta, resposta));
 
-let salute = 'Boa noite';
-readLine.question("😎 Digite a saudacao:", (resposta) => {
-  salute = resposta
-  readLine.close();
-})
+async function main() {
 
-console.log("💻 Entre com as tarefas (SAIR para sair):")
-let count = 1
-let listaTarefas = []
-
-// while(true) {
-//   let tarefa = '';
+  console.log("===========================")
+  console.log("========= EMAIL🐱‍👤=========")
+  console.log("===========================")
+  let salute = ''
+  readLine.prompt()
+  await getUserInput("😎 Digite a saudacao:").then((res) => {
+    if(salute === res) {
+      salute = 'Boa noite'
+    } else {
+      salute = res
+    }
+    readLine.resume()
+  });
   
-//   readLine.question(`${count} > `, (res) => {
-//     tarefa = res
-//     readLine.close();
-//   })
-
-//   if(tarefa.toUpperCase() === 'SAIR') break
-
-//   listaTarefas.push(tarefa)
-//   count++
-
-// }
-
-const email = createEmail(listaTarefas, salute)
-
-const mensagem = {
-  to: [],
-  from: 'vinicius.teixeira@mmtools.com.br',
-  subject: 'Relatorio diario',
-  html: email,
-};
-
-sendEmail(mensagem)
+  console.log(salute)
+  
+  console.log("💻 Entre com as tarefas (SAIR para sair):")
+  let count = 1
+  let listaTarefas = []
+  
+  while(true) {
+    let tarefa = '';
+    
+    await getUserInput(`${count} > `)
+    .then(res => {
+      tarefa= res
+      readLine.resume()
+    })
+    if(tarefa.toUpperCase() === 'SAIR') break
+    
+    listaTarefas.push(tarefa)
+    count++
+    
+  }
+  
+  console.log(listaTarefas)
+  
+  //const email = createEmail(listaTarefas, salute)
+  
+  // const mensagem = {
+    //   to: [],
+    //   from: 'vinicius.teixeira@mmtools.com.br',
+    //   subject: 'Relatorio diario',
+    //   html: email,
+    // };
+    
+    //sendEmail(mensagem)
+    readLine.close()
+  }
+  
+  main()
+  
